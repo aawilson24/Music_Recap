@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     // Step 1: Welcome message
-    cout << "Welcome to your personalized favorite Artists list, inspired by Spotify wrapped!" << endl;
+    cout << "Welcome to your personalized favorite Artists list, inspired by your favorite music apps!" << endl;
     cout << "You'll enter your favorite artists and rank them by how much you love them.\n" << endl;
 
     // Step 2: Create two vectors to store artist names and their ranks
@@ -17,43 +17,38 @@ int main() {
     string artist;  // Temporary variable to store the artist name
     int rank;       // Temporary variable to store the artist rank
     
-    cout << "Enter your top 5 favorite artists and rank them from 1 to 10 (10 = most favorite):" << endl;
+    cout << "Enter your top 5 favorite artists and rank them from 1 to 10 (1 = most favorite, 10 = least favorite):" << endl;
 
-    for (int i = 1; i <= 10; i++) {
+    for (int i = 1; i <= 5; i++) { // Collect 5 artists
         // Input artist name
         cout << "Artist " << i << ": ";
-  
         getline(cin, artist);
         artists.push_back(artist); // Add the artist name to the vector
 
         // Input artist rank
-        cout << "Rank for " << artist << " (1-5): ";
+        cout << "Rank for " << artist << " (1-10): ";
         cin >> rank;
         ranks.push_back(rank); // Add the rank to the vector
         cin.ignore();          // Clear the input buffer for the next line of input
     }
 
-    // Step 4: Sort artists by their ranks
-    // We use a sorting method to rearrange the artists based on their ranks
-
+    // Step 4: Sort artists by their ranks in ascending order
     for (int i = 0; i < artists.size() - 1; i++) {
         for (int j = i + 1; j < artists.size(); j++) {
-            if (ranks[i] < ranks[j]) { // If the current rank is less than the next rank, swap
+            if (ranks[i] > ranks[j]) { // If the current rank is greater than the next rank, swap
                 swap(ranks[i], ranks[j]);   // Swap the ranks
                 swap(artists[i], artists[j]); // Swap the corresponding artists
             }
         }
     }
 
-
-    // Step 5: Display the "Spotify Wrapped" playlist
-    cout << "\nHere's your personalized 'Spotify Wrapped' favorites list:" << endl;
+    // Step 5: Display the favorites list
+    cout << "\nHere's your personalized favorites list:" << endl;
     for (int i = 0; i < artists.size(); i++) {
         cout << i + 1 << ". " << artists[i] << " (Rank: " << ranks[i] << ")" << endl;
     }
 
     // Step 6: Ask if they want to add another artist
- 
     cout << "\nWould you like to add another artist to your list? (yes/no): ";
     string response;
     getline(cin, response);
@@ -70,11 +65,10 @@ int main() {
         artists.push_back(artist);
         ranks.push_back(rank);
 
-        // Sort the updated playlist
-
+        // Sort the updated playlist in ascending order of rank
         for (int i = 0; i < artists.size() - 1; i++) {
             for (int j = i + 1; j < artists.size(); j++) {
-                if (ranks[i] < ranks[j]) { // Sort by rank in descending order
+                if (ranks[i] > ranks[j]) { // Sort by rank in ascending order
                     swap(ranks[i], ranks[j]);
                     swap(artists[i], artists[j]);
                 }
@@ -82,12 +76,12 @@ int main() {
         }
 
         // Display the updated playlist
-        cout << "\nHere’s your updated 'Spotify Wrapped themed' favorites list:" << endl;
+        cout << "\nHere’s your updated favorites list:" << endl;
         for (int i = 0; i < artists.size(); i++) {
             cout << i + 1 << ". " << artists[i] << " (Rank: " << ranks[i] << ")" << endl;
         }
     } else {
-        cout << "\nThanks for creating your 'Spotify Wrapped' favorites list!" << endl;
+        cout << "\nThanks for creating your favorites list!" << endl;
     }
 
     return 0; // End of the program
